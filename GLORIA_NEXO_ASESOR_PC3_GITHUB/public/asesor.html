@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0e2430">
+  <title>Nexo • Asesor comercial inteligente | GE703 PC3</title>
+  <meta name="description" content="Demo académica del asesor comercial Nexo con Groq y ERP simulado.">
+  <link rel="stylesheet" href="/nexo.css">
+  <script defer src="/nexo.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="Navegación principal">
+    <div class="brand"><span class="brand-icon">N<span class="brand-dot"></span></span>
+      <span class="brand-title">nexo<span class="small-brand">AI workspace</span></span></div>
+    <div class="sidebar-heading">ESPACIO DE TRABAJO</div>
+    <nav class="nav-side">
+      <button type="button" class="nav-item active" data-nav="chat"><span class="nav-ico">✦</span> Asesor conversacional</button>
+      <button type="button" class="nav-item" data-nav="quotes"><span class="nav-ico">▤</span> Mis cotizaciones</button>
+      <button type="button" class="nav-item" data-nav="stock"><span class="nav-ico">◫</span> Inventario</button>
+      <button type="button" class="nav-item" data-nav="inbox"><span class="nav-ico">☷</span> Aprobaciones <span id="sideBadge" class="side-badge">0</span></button>
+      <button type="button" class="nav-item" data-nav="trace"><span class="nav-ico">⌁</span> Trazabilidad</button>
+    </nav>
+    <div class="sidebar-spacer"></div>
+    <div class="side-help"><span>◆</span><div><b>PC3 • UNI / FIIS</b><p>Simulación educativa. No es un canal oficial de Gloria.</p></div></div>
+    <div class="side-bottom"><span class="avatar-user">S</span><div><b>Entorno de demostración</b><small>Groq · Supabase · ERP simulado</small></div></div>
+  </aside>
+
+  <main class="workspace">
+    <header class="topbar">
+      <div class="bread">ESPACIO COMERCIAL <span>/</span> ASESOR INTELIGENTE</div>
+      <div class="top-actions">
+        <span class="status-indicator" id="onlineState"><i></i> Conectando…</span>
+        <button id="reset" class="icon-btn" title="Reiniciar esta demostración">↻ <span>Reiniciar</span></button>
+      </div>
+    </header>
+
+    <section class="content-heading">
+      <div><p class="eyebrow">TU COPILOTO COMERCIAL</p><h1>Conversar es el primer paso<span>.</span></h1>
+        <p>Habla a tu manera. Nexo te escucha, consulta los datos y te ayuda a tomar decisiones.</p></div>
+      <div class="heading-stamp"><span class="spark">✳</span><small>Powered by<br><strong>Groq + ERP simulado</strong></small></div>
+    </section>
+
+    <div class="chat-card">
+      <div class="chat-header">
+        <div class="assistant-avatar">N</div>
+        <div class="assistant-title"><strong>Nexo <span>· Asesor comercial</span></strong><small><span class="live-dot"></span> Atendiendo tu consulta</small></div>
+        <div class="chat-header-right"><span class="chip-soft">Caso Gloria · Datos sintéticos</span></div>
+      </div>
+      <div class="messages" id="mensajes" aria-live="polite"></div>
+      <div class="typing" id="typing" hidden><span></span><span></span><span></span> <small>Nexo está preparando una respuesta…</small></div>
+      <div class="quick-wrap"><span class="quick-label">ACCESOS RÁPIDOS</span>
+        <div class="quick-row">
+          <button type="button" class="quick" data-quick="catalogo">✦ <span>Ver catálogo</span></button>
+          <button type="button" class="quick" data-quick="cotizar">▤ <span>Cotizar pedido</span></button>
+          <button type="button" class="quick" data-quick="stock">◫ <span>Consultar stock</span></button>
+          <button type="button" class="quick" data-quick="quotes">⌗ <span>Mis cotizaciones</span></button>
+        </div>
+      </div>
+      <form id="form" class="composer" autocomplete="off">
+        <label class="sr-only" for="texto">Tu mensaje</label>
+        <textarea id="texto" rows="1" maxlength="500" placeholder="Escríbele a Nexo, como si fuera una persona…"></textarea>
+        <button id="enviar" type="submit" aria-label="Enviar mensaje">➤</button>
+      </form>
+      <div class="composer-footer"><span>Enter para enviar · Shift+Enter para otra línea</span><span>Respuestas revisables · Sin datos reales</span></div>
+    </div>
+  </main>
+
+  <aside class="inspector" aria-label="Panel operativo">
+    <div class="inspector-top"><p class="eyebrow">TU CENTRO DE OPERACIONES</p><h2>Todo bajo control <span>↗</span></h2>
+      <p>Simula decisiones reales, con evidencia de cada paso.</p></div>
+    <div class="inspector-controls">
+      <label for="cliente">CUENTA DE PRUEBA</label>
+      <select id="cliente">
+        <option value="CLI-001">La Alameda · Mayorista</option>
+        <option value="CLI-101">Santa Rosa</option>
+        <option value="CLI-102">El Progreso</option>
+        <option value="CLI-103">Bodegas Unidas</option>
+      </select>
+      <label for="fecha">FECHA DE LA SIMULACIÓN</label>
+      <input type="date" id="fecha" value="2026-11-12">
+    </div>
+    <div class="scenario-box"><div class="section-head"><b>Pruebas PC3</b><span>3 casos</span></div>
+      <button type="button" class="scenario" data-scenario="normal"><span class="scenario-num num-one">01</span><span><b>Pedido normal</b><small>100 cajas · validaciones OK</small></span><span class="go">↗</span></button>
+      <button type="button" class="scenario" data-scenario="stock"><span class="scenario-num num-two">02</span><span><b>Faltante de inventario</b><small>300 solicitadas · 240 + 60</small></span><span class="go">↗</span></button>
+      <button type="button" class="scenario" data-scenario="discount"><span class="scenario-num num-three">03</span><span><b>Aprobación humana</b><small>8 % · revisión de Jefatura</small></span><span class="go">↗</span></button>
+    </div>
+    <div class="inspector-tabs" role="tablist" aria-label="Información operativa">
+      <button type="button" class="tab active" data-tab="summary">Resumen</button>
+      <button type="button" class="tab" data-tab="inbox">Bandeja <span id="tabBadge">0</span></button>
+      <button type="button" class="tab" data-tab="trace">Evidencia</button>
+    </div>
+    <div id="panel" class="inspector-panel" aria-live="polite"></div>
+    <button type="button" id="downloadCsv" class="download-btn">↓ Descargar bitácora CSV</button>
+  </aside>
+</div>
+</body>
+</html>
