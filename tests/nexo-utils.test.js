@@ -1,0 +1,12 @@
+"use strict";
+const test=require("node:test");
+const assert=require("node:assert/strict");
+const U=require("../lib/nexo-utils");
+test("Detecta pedido normal como comercial",()=>assert.equal(U.pareceComercial("Necesito 100 cajas de leche UHT"),true));
+test("Detecta excepción de 300 cajas como comercial",()=>assert.equal(U.pareceComercial("Necesito 300 cajas para mañana"),true));
+test("Detecta petición de descuento como comercial",()=>assert.equal(U.pareceComercial("¿Me das 8% de descuento?"),true));
+test("No confunde nombre Oso Polar con pedido",()=>assert.equal(U.pareceComercial("Hola, soy un oso polar"),false));
+test("Extrae apodo",()=>assert.equal(U.nombreDeMensaje("Hola, soy un oso polar"),"oso polar"));
+test("No admite sesiones inseguras",()=>{assert.equal(U.SESION_RE.test("<script>"),false);assert.equal(U.SESION_RE.test("abc123"),false);assert.equal(U.SESION_RE.test("A".repeat(24)),true);});
+test("Normaliza respuesta JSON de Groq",()=>{assert.deepEqual(U.normalizarClasificacion({modo:"charla",nombre:"Oso Polar",respuesta:"¡Hola!"}),{modo:"charla",nombre:"Oso Polar",respuesta:"¡Hola!"});});
+test("Conserva únicamente mensajes del agente",()=>{const r=U.filtrarAgente([{rol:"cliente",texto:"Pedido"},{rol:"agente",bloques:[{k:"p",t:"Cotización"}],chips:[]}]);assert.equal(r.length,1);assert.equal(r[0].bloques[0].t,"Cotización");});
